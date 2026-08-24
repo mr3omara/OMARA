@@ -8,8 +8,11 @@ import {
   Users,
   WalletCards,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const navigate = useNavigate();
+
   return (
     <div
       dir="rtl"
@@ -33,8 +36,19 @@ function Dashboard() {
             WORKSPACE
           </div>
 
-          <NavItem icon={BarChart3} label="الرئيسية" active />
-          <NavItem icon={Users} label="العملاء" />
+          <NavItem
+            icon={BarChart3}
+            label="الرئيسية"
+            active
+            onClick={() => navigate("/")}
+          />
+
+          <NavItem
+            icon={Users}
+            label="العملاء"
+            onClick={() => navigate("/customers")}
+          />
+
           <NavItem icon={CreditCard} label="الخطوط" />
           <NavItem icon={Package} label="المخزون" />
           <NavItem icon={ShoppingCart} label="المبيعات" />
@@ -67,6 +81,7 @@ function Dashboard() {
 
           <button className="relative mr-4 rounded-xl p-3 text-white/50 hover:bg-white/5 hover:text-white">
             <Bell size={19} />
+
             <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-red-500" />
           </button>
         </header>
@@ -174,13 +189,16 @@ function NavItem({
   icon: Icon,
   label,
   active = false,
+  onClick,
 }: {
   icon: React.ComponentType<{ size?: number }>;
   label: string;
   active?: boolean;
+  onClick?: () => void;
 }) {
   return (
     <button
+      onClick={onClick}
       className={`mb-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm transition ${
         active
           ? "bg-red-600 text-white"
@@ -215,16 +233,22 @@ function Stat({
       }`}
     >
       <div className="mb-5 flex items-center justify-between">
-        <span className="text-sm text-white/40">{title}</span>
+        <span className="text-sm text-white/40">
+          {title}
+        </span>
 
         <div className="rounded-xl bg-white/5 p-2.5 text-white/50">
           <Icon size={18} />
         </div>
       </div>
 
-      <div className="text-2xl font-black">{value}</div>
+      <div className="text-2xl font-black">
+        {value}
+      </div>
 
-      <div className="mt-2 text-xs text-white/25">{note}</div>
+      <div className="mt-2 text-xs text-white/25">
+        {note}
+      </div>
     </div>
   );
 }
@@ -239,7 +263,9 @@ function Panel({
   return (
     <div className="rounded-2xl border border-white/10 bg-[#0B0B0B]">
       <div className="border-b border-white/10 px-6 py-5">
-        <h2 className="font-bold">{title}</h2>
+        <h2 className="font-bold">
+          {title}
+        </h2>
       </div>
 
       <div className="divide-y divide-white/[0.06]">
@@ -261,11 +287,18 @@ function Activity({
   return (
     <div className="flex items-center justify-between gap-4 px-6 py-5">
       <div>
-        <div className="text-sm font-semibold">{title}</div>
-        <div className="mt-1 text-xs text-white/30">{description}</div>
+        <div className="text-sm font-semibold">
+          {title}
+        </div>
+
+        <div className="mt-1 text-xs text-white/30">
+          {description}
+        </div>
       </div>
 
-      <div className="text-sm font-bold">{value}</div>
+      <div className="text-sm font-bold">
+        {value}
+      </div>
     </div>
   );
 }
@@ -282,8 +315,13 @@ function Alert({
       <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-red-500" />
 
       <div>
-        <div className="text-sm font-semibold">{title}</div>
-        <div className="mt-1 text-xs text-white/30">{description}</div>
+        <div className="text-sm font-semibold">
+          {title}
+        </div>
+
+        <div className="mt-1 text-xs text-white/30">
+          {description}
+        </div>
       </div>
     </div>
   );
